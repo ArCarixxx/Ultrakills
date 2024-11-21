@@ -2,27 +2,37 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class weapon : MonoBehaviour
+public class Weapon : MonoBehaviour
 {
+    public WeaponType Type;
     public int maxAmmo = 1;
     public int currentAmmo;
     public float attackSpeed = .5f;
     public float reloadTime = 2f;
+    public int bulletAmount = 1;
 
     public Bullet bulletPrefab;
     public Transform shootPoint;
+    public Transform objetivePoint;
+    public Vector3 bulletVariation;
 
-    internal bool isReloading = false;
-    // Start is called before the first frame update
+    bool isReloading = false;
+    bool canAttack = false;
+
     void Start()
     {
         currentAmmo = maxAmmo;
+        canAttack = true;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0) && !isReloading)
+        Attack();
+    }
+
+    public void Attack()
+    {
+        if (Input.GetKey(KeyCode.Mouse0) && !isReloading)
         {
             if (currentAmmo > 0)
             {
@@ -37,22 +47,21 @@ public class weapon : MonoBehaviour
 
     internal void Shoot()
     {
-        currentAmmo--;
-
-        Instantiate(bulletPrefab, shootPoint.position, shootPoint.rotation);
-
-        StartCoroutine(AttackCooldown());
-    }
-    internal void Shoot(int amount, Vector3 variacion)
-    {
-        currentAmmo--;
-
-        for (int i = 0; i < amount; i++)
+        if (canAttack)
         {
-            Instantiate(bulletPrefab, shootPoint.position, shootPoint.rotation);
-        }
+            currentAmmo--;
 
-        StartCoroutine(AttackCooldown());
+            for (int i = 0; i < bulletAmount; i++)
+            {
+                Vector3 variacion = new Vector3(Random.Range(-bulletVariation.x, bulletVariation.x),
+                                                Random.Range(-bulletVariation.y, bulletVariation.y),
+                                                Random.Range(-bulletVariation.z, bulletVariation.z));
+                Bullet bullet = Instantiate(bulletPrefab, shootPoint.position, shootPoint.rotation);
+                bullet.transform.LookAt(objetivePoint.position + variacion);
+            }
+
+            StartCoroutine(AttackCooldown());
+        }
     }
 
     internal void Reload()
@@ -79,6 +88,17 @@ public class weapon : MonoBehaviour
 
     IEnumerator AttackCooldown()
     {
+        canAttack = false;
+
         yield return new WaitForSeconds(attackSpeed);
+
+        canAttack = true;
     }
+}
+
+public enum WeaponType
+{
+    Escopeta,
+    Metralleta,
+    Bazooka
 }
