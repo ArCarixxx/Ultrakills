@@ -24,6 +24,17 @@ public class Turret : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Automatically find the player in the scene by name
+        GameObject playerObject = GameObject.Find("Player");
+        if (playerObject != null)
+        {
+            player = playerObject.transform;
+        }
+        else
+        {
+            Debug.LogWarning("Player not found in the scene");
+        }
+
         if (gunTurret == null)
         {
             Debug.LogError("Gun cylinder is not assigned!");
@@ -43,17 +54,18 @@ public class Turret : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (player == null) return;
-
-        // Check if the player is within detection range
-        float distanceToPlayer = Vector3.Distance(transform.position, player.position);
-        if (distanceToPlayer <= detectionRange)
+        if (player != null)
         {
-            TrackPlayer(); // Rotate toward the player
-        }
-        else
-        {
-            IdleAnimation(); // Perform idle animation
+            // Check if the player is within detection range
+            float distanceToPlayer = Vector3.Distance(transform.position, player.position);
+            if (distanceToPlayer <= detectionRange)
+            {
+                TrackPlayer(); // Rotate toward the player
+            }
+            else
+            {
+                IdleAnimation(); // Perform idle animation
+            }
         }
     }
 
@@ -112,7 +124,7 @@ public class Turret : MonoBehaviour
         Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
 
         // Add an offset to adjust the correct face
-        Quaternion offsetRotation = Quaternion.Euler(0, 270, 0); // Adjust 90 degrees or any required angle
+        Quaternion offsetRotation = Quaternion.Euler(0, 180, 0); // Adjust 180 degrees or any required angle
         targetRotation *= offsetRotation;
 
         // Smoothly rotate the gun cylinder toward the player
