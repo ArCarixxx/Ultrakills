@@ -19,7 +19,7 @@ public class Player : MonoBehaviour
     public TextMeshProUGUI availableBulletsText; 
     public TextMeshProUGUI availableBulletsText1;
 
-    public List<Weapon> weapons = new List<Weapon>();
+    public List<Weaponnnn> weapons = new List<Weaponnnn>();
     private int currentWeaponIndex = 0; 
 
     void Start()
@@ -57,7 +57,7 @@ public class Player : MonoBehaviour
     {
         if (weapons.Count > 0 && weaponImage != null && totalBulletsText != null && availableBulletsText != null)
         {
-            Weapon currentWeapon = weapons[currentWeaponIndex];
+            Weaponnnn currentWeapon = weapons[currentWeaponIndex];
             weaponImage.sprite = currentWeapon.weaponSprite;
             availableBulletsText.text = currentWeapon.availableBullets.ToString();
             totalBulletsText.text = $"/ {currentWeapon.totalBullets}";
@@ -69,7 +69,7 @@ public class Player : MonoBehaviour
 }
 
 [System.Serializable]
-public class Weapon
+public class Weaponnnn
 {
     public string weaponName; 
     public Sprite weaponSprite; 
