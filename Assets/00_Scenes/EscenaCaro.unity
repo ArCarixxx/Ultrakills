@@ -602,7 +602,7 @@ MonoBehaviour:
     totalBullets: 2
     availableBullets: 2
   - weaponName: Bazuca
-    weaponSprite: {fileID: 21300000, guid: 00ddbca0230a0b34f8113e6169a087a7, type: 3}
+    weaponSprite: {fileID: 21300000, guid: 8a4d9744c128422468afead40cc8dc36, type: 3}
     totalBullets: 1
     availableBullets: 1
 --- !u!1 &407958728
