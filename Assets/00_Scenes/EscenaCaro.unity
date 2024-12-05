@@ -592,19 +592,23 @@ MonoBehaviour:
   totalBulletsText1: {fileID: 1108828989}
   availableBulletsText: {fileID: 465666139}
   availableBulletsText1: {fileID: 1085196025}
-  weapons:
+  weaponsUI:
   - weaponName: Metralleta
     weaponSprite: {fileID: 21300000, guid: 54185dcc79cd7c04b8ed3e8a8860956c, type: 3}
     totalBullets: 50
-    availableBullets: 50
+    availableBullets: 0
   - weaponName: Escopeta
     weaponSprite: {fileID: 21300000, guid: fa5f0cabdfefc6542885cb5b56307ab3, type: 3}
     totalBullets: 2
-    availableBullets: 2
+    availableBullets: 0
   - weaponName: Bazuca
     weaponSprite: {fileID: 21300000, guid: 8a4d9744c128422468afead40cc8dc36, type: 3}
     totalBullets: 1
-    availableBullets: 1
+    availableBullets: 0
+  weapons:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &407958728
 GameObject:
   m_ObjectHideFlags: 0
