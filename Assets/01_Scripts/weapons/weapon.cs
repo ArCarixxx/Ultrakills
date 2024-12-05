@@ -16,8 +16,8 @@ public class Weapon : MonoBehaviour
     public Transform objetivePoint;
     public Vector3 bulletVariation;
 
-    bool isReloading = false;
-    bool canAttack = false;
+    public bool isReloading = false;
+    public bool canAttack = false;
 
     void Start()
     {

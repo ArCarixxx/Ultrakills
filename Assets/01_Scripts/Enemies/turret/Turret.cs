@@ -15,11 +15,17 @@ public class Turret : MonoBehaviour
     private bool playerDetected = false;
 
     public Transform firePoint;
-    public GameObject bulletPrefab;
+    public Bullet bulletPrefab;
 
     private float startingRotationY; // Initial Y rotation
     private float currentRotationY; // Current Y rotation
     private bool rotatingRight = true; // Direction of rotation
+
+    public float attackSpeed = 2f;
+    public float timer = 0f;
+
+    public int maxLife = 5;
+    public int life;
 
     // Start is called before the first frame update
     void Start()
@@ -49,6 +55,7 @@ public class Turret : MonoBehaviour
         // Store the initial rotation of the sentry gun
         startingRotationY = transform.localEulerAngles.y;
         currentRotationY = startingRotationY;
+        life = maxLife;
     }
 
     // Update is called once per frame
@@ -61,6 +68,7 @@ public class Turret : MonoBehaviour
             if (distanceToPlayer <= detectionRange)
             {
                 TrackPlayer(); // Rotate toward the player
+                Attack();
             }
             else
             {
@@ -135,8 +143,49 @@ public class Turret : MonoBehaviour
         );
     }
 
-    void Shoot()
+    void Attack()
     {
-        Instantiate(bulletPrefab, firePoint);
+        if (timer < attackSpeed)
+        {
+            timer += Time.deltaTime;
+        }
+        else
+        {
+            timer = 0;
+            Bullet bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
+            bullet.transform.LookAt(player.position);
+        }
+    }
+
+    public void TakeDamage()
+    {
+        life -= 1;
+        if (life <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other != null)
+        {
+            if (other.gameObject.CompareTag("Bullet"))
+            {
+                var obj = other.gameObject.GetComponent<Bullet>();
+                if (!obj.fromEnemy)
+                {
+                    TakeDamage();
+                    if (obj.type == BulletType.Explosive) Instantiate(obj.explosion, obj.transform.position, Quaternion.identity);
+                }
+
+                Destroy(other.gameObject);
+
+            }
+            else if (other.gameObject.CompareTag("Explosion"))
+            {
+                TakeDamage();
+            }
+        }
     }
 }

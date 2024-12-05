@@ -10,6 +10,7 @@ public class Bullet : MonoBehaviour
     public int damage = 1;
     public Rigidbody rb;
     public GameObject explosion;
+    public bool fromEnemy = false;
 
     void Start()
     {
@@ -35,16 +36,10 @@ public class Bullet : MonoBehaviour
         {
             if (other.gameObject.CompareTag("Floor"))
             {
-                Instantiate(explosion,transform.position, Quaternion.identity);
-                Destroy(gameObject);
-            }
-            else if (other.gameObject.CompareTag("Player"))
-            {
-                Instantiate(explosion,transform.position, Quaternion.identity);
+                if (type == BulletType.Explosive) Instantiate(explosion, transform.position, Quaternion.identity);
                 Destroy(gameObject);
             }
         }
-
     }
 }
 

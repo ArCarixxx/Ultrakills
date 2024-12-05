@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2039980429178236474}
   m_Layer: 0
   m_Name: Explosion
-  m_TagString: Untagged
+  m_TagString: Explosion
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -91,7 +91,7 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1753641285237859917}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
@@ -108,4 +108,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 567c08b91fca2e842ba5dc0adb781d17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  duration: 1
+  targetScale: {x: 5, y: 5, z: 5}
+  growDuration: 1

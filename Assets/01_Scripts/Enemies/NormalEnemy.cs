@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class NormalEnemy : MonoBehaviour
 {
@@ -15,17 +14,21 @@ public class NormalEnemy : MonoBehaviour
     public bool playerLocated = false;
     public float playerDetection = 15f;
     public float maxDistance = 10f;
-    public bool maxDistanceReached = false;
     public float locateTimer = 0f;
 
     public float speed = 5f;
     public bool walk = false;
+
+    public int maxLife = 5;
+    public int life;
+
 
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
         target = GameObject.FindGameObjectWithTag("Player");
+        life = maxLife;
     }
 
     // Update is called once per frame
@@ -39,13 +42,12 @@ public class NormalEnemy : MonoBehaviour
         if (playerLocated)
         {
 
-            if (!maxDistanceReached && Vector3.Distance(transform.position, target.transform.position) < maxDistance)
+            if (Vector3.Distance(transform.position, target.transform.position) > maxDistance)
             {
                 WalkToPlayer();
             }
             else
             {
-                maxDistanceReached = true;
                 walk = false;
                 //attack
                 //mira al jugador
@@ -60,15 +62,13 @@ public class NormalEnemy : MonoBehaviour
         {
             WalkFree();
 
-            locateTimer += Time.deltaTime;
-
-            if (locateTimer > 1)
+            if (target != null && Vector3.Distance(transform.position, target.transform.position) < playerDetection)
             {
-                if (Vector3.Distance(transform.position, target.transform.position) < playerDetection)
-                {
-                    playerLocated = true;
-                }
-                locateTimer = 0;
+                playerLocated = true;
+            }
+            else
+            {
+                target = GameObject.FindGameObjectWithTag("Player");
             }
         }
 
@@ -120,4 +120,37 @@ public class NormalEnemy : MonoBehaviour
         if (walk) transform.Translate(Vector3.forward * speed * Time.deltaTime);
     }
     #endregion
+
+
+    public void TakeDamage()
+    {
+        life -= 1;
+        if (life <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other != null)
+        {
+            if (other.gameObject.CompareTag("Bullet"))
+            {
+                var obj = other.gameObject.GetComponent<Bullet>();
+                if (!obj.fromEnemy)
+                {
+                    TakeDamage();
+                    if (obj.type == BulletType.Explosive) Instantiate(obj.explosion, obj.transform.position, Quaternion.identity);
+                }
+
+                Destroy(other.gameObject);
+
+            }
+            else if (other.gameObject.CompareTag("Explosion"))
+            {
+                TakeDamage();
+            }
+        }
+    }
 }
