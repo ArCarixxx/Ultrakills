@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 5955363519431019099}
   - component: {fileID: 2590105832507749158}
   - component: {fileID: 7065217787458731885}
-  - component: {fileID: 3341342194878746731}
   - component: {fileID: 7016479628632294557}
+  - component: {fileID: 1769405857984188717}
   m_Layer: 7
   m_Name: BazokaBullet
   m_TagString: Bullet
@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 1311179945465286967}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -5.3776436, y: 1.0331669, z: -3.6663022}
-  m_LocalScale: {x: 0.4, y: 0.4, z: 0.2}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_Children:
   - {fileID: 5792223242445491523}
   m_Father: {fileID: 0}
@@ -104,19 +104,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &3341342194878746731
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1311179945465286967}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &7016479628632294557
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -133,6 +120,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!136 &1769405857984188717
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1311179945465286967}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.37624156
+  m_Height: 1.8938029
+  m_Direction: 2
+  m_Center: {x: 0.024063587, y: -0.010313168, z: -0.061878562}
 --- !u!1001 &6334494453272996520
 PrefabInstance:
   m_ObjectHideFlags: 0
