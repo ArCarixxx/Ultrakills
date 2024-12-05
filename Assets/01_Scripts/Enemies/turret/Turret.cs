@@ -21,15 +21,20 @@ public class Turret : MonoBehaviour
     private float currentRotationY; // Current Y rotation
     private bool rotatingRight = true; // Direction of rotation
 
-    public float attackSpeed = 2f;
+    public float attackSpeed = 0.5f;
     public float timer = 0f;
 
     public int maxLife = 5;
     public int life;
 
+    public Animator animator;
+    public AudioSource audioShoot;
+
     // Start is called before the first frame update
     void Start()
     {
+        animator = GetComponent<Animator>();
+
         // Automatically find the player in the scene by name
         GameObject playerObject = GameObject.Find("Player");
         if (playerObject != null)
@@ -154,6 +159,8 @@ public class Turret : MonoBehaviour
             timer = 0;
             Bullet bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
             bullet.transform.LookAt(player.position);
+            animator.SetTrigger("Shoot");
+            audioShoot.Play();
         }
     }
 

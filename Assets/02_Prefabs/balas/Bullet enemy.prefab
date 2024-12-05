@@ -49,7 +49,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
-  deadTime: 1
+  deadTime: 10
   speed: 12
   damage: 1
   rb: {fileID: 0}
