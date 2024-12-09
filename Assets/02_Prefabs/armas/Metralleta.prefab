@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6228390209953461656}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: firepoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39,7 +39,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6228390210174778809}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72,7 +72,7 @@ GameObject:
   - component: {fileID: 6228390210637659487}
   - component: {fileID: 6228390210637659486}
   - component: {fileID: 6228390210637659481}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -167,7 +167,7 @@ GameObject:
   - component: {fileID: 6228390211465093605}
   - component: {fileID: 6228390211465093604}
   - component: {fileID: 6228390211465093607}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -261,9 +261,8 @@ GameObject:
   - component: {fileID: 6228390211520960273}
   - component: {fileID: 6228390211520960272}
   - component: {fileID: 6228390211520960275}
-  - component: {fileID: 6228390211520960274}
   - component: {fileID: 6228390211520960278}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Metralleta
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -278,7 +277,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6228390211520960285}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.47, y: -0.66, z: 0.59}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 6228390211891277560}
@@ -336,19 +335,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &6228390211520960274
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6228390211520960285}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &6228390211520960278
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -371,6 +357,12 @@ MonoBehaviour:
   shootPoint: {fileID: 6228390209953461656}
   objetivePoint: {fileID: 6228390210174778809}
   bulletVariation: {x: 0.5, y: 0.5, z: 0.5}
+  data:
+    weaponName: Metralleta
+    weaponSprite: {fileID: 21300000, guid: 54185dcc79cd7c04b8ed3e8a8860956c, type: 3}
+  sonidoDisparo: {fileID: 8300000, guid: 9cc73461a1b1d424a840876e697379d9, type: 3}
+  isReloading: 0
+  canAttack: 0
 --- !u!1 &6228390211891277563
 GameObject:
   m_ObjectHideFlags: 0
@@ -380,7 +372,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6228390211891277560}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: modelo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -458,6 +450,14 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 98c8d9ba50b03784e80244f10c22da9a, type: 3}
       propertyPath: m_Name
       value: metralleta-1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 98c8d9ba50b03784e80244f10c22da9a, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8164078558771037576, guid: 98c8d9ba50b03784e80244f10c22da9a, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 98c8d9ba50b03784e80244f10c22da9a, type: 3}

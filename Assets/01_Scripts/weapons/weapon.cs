@@ -16,13 +16,20 @@ public class Weapon : MonoBehaviour
     public Transform objetivePoint;
     public Vector3 bulletVariation;
 
+    public Information data;
+
+    public AudioClip sonidoDisparo;
+
     public bool isReloading = false;
     public bool canAttack = false;
+
+    private AudioManager audioManager;
 
     void Start()
     {
         currentAmmo = maxAmmo;
         canAttack = true;
+        audioManager = AudioManager.instance;
     }
 
     void Update()
@@ -60,6 +67,7 @@ public class Weapon : MonoBehaviour
                 bullet.transform.LookAt(objetivePoint.position + variacion);
             }
 
+            audioManager.PlaySFX(sonidoDisparo);
             StartCoroutine(AttackCooldown());
         }
     }
@@ -101,4 +109,11 @@ public enum WeaponType
     Escopeta,
     Metralleta,
     Bazooka
+}
+
+[System.Serializable]
+public class Information
+{
+    public string weaponName;
+    public Sprite weaponSprite;
 }

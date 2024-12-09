@@ -8,7 +8,7 @@ public class Turret : MonoBehaviour
     public float rotationAngle = 45f; // Maximum angle to rotate side to side
     public float rotationSpeed = 2f; // Speed of the rotation
 
-    public Transform player; // Reference to the player
+    public Player player; // Reference to the player
     public float detectionRange = 2f; // Range at which the sentry detects the player
     public float detectionAngle = 90f;  // Field of view angle for detection
     public float trackingSpeed = 5f; // Speed at which the gun rotates toward the player
@@ -27,6 +27,9 @@ public class Turret : MonoBehaviour
     public int maxLife = 5;
     public int life;
 
+    private AudioManager audioManager;
+    public AudioClip shootSound;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -34,7 +37,7 @@ public class Turret : MonoBehaviour
         GameObject playerObject = GameObject.Find("Player");
         if (playerObject != null)
         {
-            player = playerObject.transform;
+            player = playerObject.GetComponent<Player>();
         }
         else
         {
@@ -56,6 +59,9 @@ public class Turret : MonoBehaviour
         startingRotationY = transform.localEulerAngles.y;
         currentRotationY = startingRotationY;
         life = maxLife;
+
+        audioManager = AudioManager.instance;
+
     }
 
     // Update is called once per frame
@@ -64,7 +70,7 @@ public class Turret : MonoBehaviour
         if (player != null)
         {
             // Check if the player is within detection range
-            float distanceToPlayer = Vector3.Distance(transform.position, player.position);
+            float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
             if (distanceToPlayer <= detectionRange)
             {
                 TrackPlayer(); // Rotate toward the player
@@ -97,7 +103,7 @@ public class Turret : MonoBehaviour
 
     void DetectPlayer()
     {
-        Vector3 directionToPlayer = player.position - transform.position;
+        Vector3 directionToPlayer = player.transform.position - transform.position;
 
         // Check if the player is within detection range
         if (directionToPlayer.magnitude <= detectionRange)
@@ -126,7 +132,7 @@ public class Turret : MonoBehaviour
     void TrackPlayer()
     {
         // Calculate the direction to the player
-        Vector3 directionToPlayer = player.position - gunTurret.position;
+        Vector3 directionToPlayer = player.transform.position - gunTurret.position;
 
         // Calculate the target rotation to look at the player
         Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
@@ -153,7 +159,8 @@ public class Turret : MonoBehaviour
         {
             timer = 0;
             Bullet bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
-            bullet.transform.LookAt(player.position);
+            bullet.transform.LookAt(player.transform.position);
+            audioManager.PlaySFX(shootSound);
         }
     }
 
@@ -162,6 +169,7 @@ public class Turret : MonoBehaviour
         life -= 1;
         if (life <= 0)
         {
+            player.AddPoint();
             Destroy(gameObject);
         }
     }

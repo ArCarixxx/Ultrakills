@@ -16,11 +16,9 @@ public class Bullet : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         Destroy(gameObject,deadTime);
+        rb.velocity = transform.forward * speed;
     }
-    void Update()
-    {
-        rb.AddForce(transform.forward * speed, ForceMode.Force);
-    }
+
 
     void OnDestroy()
     {
@@ -34,7 +32,7 @@ public class Bullet : MonoBehaviour
     {
         if (other != null)
         {
-            if (other.gameObject.CompareTag("Floor"))
+            if (!other.gameObject.CompareTag("Bullet"))
             {
                 if (type == BulletType.Explosive) Instantiate(explosion, transform.position, Quaternion.identity);
                 Destroy(gameObject);

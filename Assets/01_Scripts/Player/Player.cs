@@ -10,16 +10,14 @@ public class Player : MonoBehaviour
     public float maxLife = 100f;
 
     public Image healthBar;
-    public Image healthBar1;
 
     public Image weaponImage;
-    public Image weaponImage1;
     public TextMeshProUGUI totalBulletsText;
-    public TextMeshProUGUI totalBulletsText1;
-    public TextMeshProUGUI availableBulletsText; 
-    public TextMeshProUGUI availableBulletsText1;
+    public TextMeshProUGUI availableBulletsText;
 
-    public List<Weaponnnn> weaponsUI = new List<Weaponnnn>();
+    public TextMeshProUGUI pointsText;
+    public int totalPoints;
+
     public List<Weapon> weapons = new List<Weapon>();
     private int currentWeaponIndex = 0; 
 
@@ -27,6 +25,7 @@ public class Player : MonoBehaviour
     {
         life = maxLife;
         UpdateWeaponCanvas();
+        totalPoints = 0;
     }
 
     void Update()
@@ -35,6 +34,7 @@ public class Player : MonoBehaviour
         {
             ChangeToNextWeapon();
         }
+        UpdateWeaponCanvas();
     }
 
     public void TakeDamage()
@@ -49,13 +49,16 @@ public class Player : MonoBehaviour
             UpdateHealthBar();
         }
     }
+    public void AddPoint()
+    {
+        totalPoints++;
+    }
 
     private void UpdateHealthBar()
     {
-        if (healthBar != null && healthBar1 != null)
+        if (healthBar != null)
         {
             healthBar.fillAmount = (float)life / maxLife;
-            healthBar1.fillAmount = (float)life / maxLife;
         }
     }
 
@@ -71,15 +74,12 @@ public class Player : MonoBehaviour
 
     private void UpdateWeaponCanvas()
     {
-        if (weaponsUI.Count > 0 && weaponImage != null && totalBulletsText != null && availableBulletsText != null)
+        if (weapons.Count > 0 && weaponImage != null && totalBulletsText != null && availableBulletsText != null)
         {
-            Weaponnnn currentWeapon = weaponsUI[currentWeaponIndex];
-            weaponImage.sprite = currentWeapon.weaponSprite;
-            availableBulletsText.text = currentWeapon.availableBullets.ToString();
-            totalBulletsText.text = $"/ {currentWeapon.totalBullets}";
-            weaponImage1.sprite = currentWeapon.weaponSprite;
-            availableBulletsText1.text = currentWeapon.availableBullets.ToString();
-            totalBulletsText1.text = $"/ {currentWeapon.totalBullets}";
+            weaponImage.sprite = weapons[currentWeaponIndex].data.weaponSprite;
+            availableBulletsText.text = weapons[currentWeaponIndex].currentAmmo.ToString();
+            totalBulletsText.text = $"/ {weapons[currentWeaponIndex].maxAmmo.ToString()}";
+            pointsText.text = $"{totalPoints.ToString()}";
         }
     }
 
@@ -99,13 +99,4 @@ public class Player : MonoBehaviour
             }
         }
     }
-}
-
-[System.Serializable]
-public class Weaponnnn
-{
-    public string weaponName; 
-    public Sprite weaponSprite; 
-    public int totalBullets; 
-    public int availableBullets; 
 }

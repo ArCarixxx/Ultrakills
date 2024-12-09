@@ -10,6 +10,8 @@ public class BulletExplosion : MonoBehaviour
     private float elapsedTime = 0f; // Tiempo transcurrido desde el inicio del crecimiento
     private bool isGrowing = false; // Indica si el objeto está creciendo
 
+    public AudioClip sonido;
+
     void Start()
     {
         // Inicializar la escala del objeto en 0
@@ -17,6 +19,7 @@ public class BulletExplosion : MonoBehaviour
 
         // Iniciar el crecimiento
         StartGrowing();
+        AudioManager.instance.PlaySFX(sonido);
     }
 
     public void StartGrowing()

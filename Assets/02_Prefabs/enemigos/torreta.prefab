@@ -54,6 +54,11 @@ MonoBehaviour:
   trackingSpeed: 5
   firePoint: {fileID: 2169226221563424988}
   bulletPrefab: {fileID: 1311179945465286967, guid: 4f9c9c21ba2bbbc418c56485f3eac2d9, type: 3}
+  attackSpeed: 2
+  timer: 0
+  maxLife: 5
+  life: 0
+  shootSound: {fileID: 8300000, guid: a636570112ff2e14189b83e51cec6e4a, type: 3}
 --- !u!65 &3645256132385151847
 BoxCollider:
   m_ObjectHideFlags: 0
