@@ -88,7 +88,6 @@ public class NormalEnemy : MonoBehaviour
         lookPos.y = 0;
         var rotation = Quaternion.LookRotation(lookPos);
         transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, 3);
-        if (animator != null) animator.SetBool("Walk", true);
         walk = true;
     }
 
@@ -103,7 +102,6 @@ public class NormalEnemy : MonoBehaviour
         switch (rutina)
         {
             case 0:
-                if (animator != null) animator.SetBool("Walk", false);
                 walk = false;
                 break;
 
@@ -115,7 +113,6 @@ public class NormalEnemy : MonoBehaviour
 
             case 2:
                 transform.rotation = Quaternion.RotateTowards(transform.rotation, angulo, 0.5f);
-                if (animator != null) animator.SetBool("Walk", true);
                 walk = true;
                 break;
         }
@@ -163,16 +160,25 @@ public class NormalEnemy : MonoBehaviour
                 Destroy(other.gameObject);
 
             }
-            else if (other.gameObject.CompareTag("Player"))
-            {
-                Player player = other.gameObject.GetComponent<Player>();
-                player.TakeDamage();
-                StartCoroutine(AttackCooldown());
-                if (animator != null) animator.SetTrigger("Attack");
-            }
+            
             else if (other.gameObject.CompareTag("Explosion"))
             {
                 TakeDamage();
+            }
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision != null)
+        {
+            if (collision.gameObject.CompareTag("Player"))
+            {
+                Player player = collision.gameObject.GetComponent<Player>();
+                player.TakeDamage();
+                player.TakeDamage();
+                StartCoroutine(AttackCooldown());
+                if (animator != null) animator.SetTrigger("Attack");
             }
         }
     }
